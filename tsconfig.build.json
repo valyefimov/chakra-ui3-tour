@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "Bundler",
+    "paths": {}
+  },
+  "include": ["src"],
+  "exclude": ["src/examples", "src/main.tsx", "index.html", "dist", "node_modules"]
+}
