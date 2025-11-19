@@ -1,6 +1,6 @@
-import { createContext } from 'react'
-import { TourContextValue } from './tour.types'
+import { createContext } from 'react';
+import { TourContextValue } from './tour.types';
 
-export const TourContext = createContext<TourContextValue | null>(null)
+export const TourContext = createContext<TourContextValue | null>(null);
 
-export const TourProvider = TourContext.Provider
+export const TourProvider = TourContext.Provider;

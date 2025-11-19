@@ -1,5 +1,5 @@
-import { anatomy } from '@chakra-ui/anatomy'
-import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system'
+import { anatomy } from '@chakra-ui/anatomy';
+import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system';
 
 /**
  * Tour component anatomy
@@ -13,11 +13,12 @@ export const tourAnatomy = anatomy('tour').parts(
   'body',
   'footer',
   'arrow',
-  'closeButton'
-)
+  'closeButton',
+);
 
-const { defineMultiStyleConfig, definePartsStyle } =
-  createMultiStyleConfigHelpers(tourAnatomy.keys)
+const { defineMultiStyleConfig, definePartsStyle } = createMultiStyleConfigHelpers(
+  tourAnatomy.keys,
+);
 
 /**
  * Base styles for the tour component
@@ -93,7 +94,7 @@ const baseStyle = definePartsStyle({
     top: 2,
     right: 2,
   },
-})
+});
 
 /**
  * Size variants for the tour component
@@ -156,7 +157,7 @@ const sizes = {
       py: 4,
     },
   }),
-}
+};
 
 /**
  * Default tour theme configuration
@@ -167,9 +168,9 @@ export const tourTheme = defineMultiStyleConfig({
   defaultProps: {
     size: 'md',
   },
-})
+});
 
 /**
  * Helper to extend tour theme
  */
-export { defineMultiStyleConfig as defineTourConfig, definePartsStyle as defineTourStyle }
+export { defineMultiStyleConfig as defineTourConfig, definePartsStyle as defineTourStyle };

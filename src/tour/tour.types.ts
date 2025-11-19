@@ -1,146 +1,146 @@
-import { ReactNode, RefObject } from 'react'
+import { ReactNode, RefObject } from 'react';
 
 export interface TourStepAPI {
   /**
    * Whether the tour is currently active
    */
-  isActive: boolean
+  isActive: boolean;
   /**
    * Whether the tour is completed
    */
-  isCompleted: boolean
+  isCompleted: boolean;
   /**
    * The current step index
    */
-  currentStep: number
+  currentStep: number;
   /**
    * The total number of steps
    */
-  totalSteps: number
+  totalSteps: number;
   /**
    * The target element for the current step
    */
-  targetElement: HTMLElement | null
+  targetElement: HTMLElement | null;
   /**
    * Ref to the target element
    */
-  targetRef: RefObject<HTMLElement | null>
+  targetRef: RefObject<HTMLElement | null>;
   /**
    * Go to the next step
    */
-  nextStep: () => void
+  nextStep: () => void;
   /**
    * Go to the previous step
    */
-  prevStep: () => void
+  prevStep: () => void;
   /**
    * Go to a specific step
    */
-  goToStep: (index: number) => void
+  goToStep: (index: number) => void;
   /**
    * Dismiss the current step
    */
-  dismiss: () => void
+  dismiss: () => void;
   /**
    * Complete the tour
    */
-  complete: () => void
+  complete: () => void;
   /**
    * Start the tour
    */
-  start: () => void
+  start: () => void;
 }
 
 export interface TourProps {
   /**
    * The tour content (TourDialog components)
    */
-  children: ReactNode
+  children: ReactNode;
   /**
    * Whether the tour is active (controlled)
    */
-  isActive?: boolean
+  isActive?: boolean;
   /**
    * Whether the tour is active by default (uncontrolled)
    */
-  defaultIsActive?: boolean
+  defaultIsActive?: boolean;
   /**
    * The initial step index
    * @default 0
    */
-  initialStep?: number
+  initialStep?: number;
   /**
    * Called when the tour is completed
    */
-  onComplete?: () => void
+  onComplete?: () => void;
   /**
    * Called when a step is dismissed
    */
-  onDismiss?: (index: number) => void
+  onDismiss?: (index: number) => void;
   /**
    * Ref to access tour API methods
    */
-  tourRef?: RefObject<TourStepAPI>
+  tourRef?: RefObject<TourStepAPI>;
 }
 
 export interface TourDialogProps {
   /**
    * The content of the dialog
    */
-  children: ReactNode
+  children: ReactNode;
   /**
    * CSS selector for the target element
    * @example "[data-tour='step-1']"
    */
-  'data-target'?: string
+  'data-target'?: string;
   /**
    * Whether to show the dialog
    */
-  isOpen?: boolean
+  isOpen?: boolean;
   /**
    * Called when the dialog should close
    */
-  onClose?: () => void
+  onClose?: () => void;
   /**
    * Placement of the dialog relative to the target
    * @default "bottom"
    */
-  placement?: 'top' | 'bottom' | 'left' | 'right' | 'auto'
+  placement?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
   /**
    * Offset from the target element in pixels
    * @default 8
    */
-  offset?: number
+  offset?: number;
 }
 
 export interface TourSpotlightProps {
   /**
    * Whether to hide the overlay
    */
-  hideOverlay?: boolean
+  hideOverlay?: boolean;
   /**
    * Whether clicking the overlay closes the tour
    */
-  closeOnClick?: boolean
+  closeOnClick?: boolean;
   /**
    * Animation preset
    * @default "fade"
    */
-  motionPreset?: 'fade' | 'none'
+  motionPreset?: 'fade' | 'none';
   /**
    * Spacing around the spotlight in pixels
    * @default 8
    */
-  spacing?: number
+  spacing?: number;
 }
 
 export interface TourContextValue extends TourStepAPI {
   /**
    * Register a step
    */
-  registerStep: (index: number, target: string) => void
+  registerStep: (index: number, target: string) => void;
   /**
    * Unregister a step
    */
-  unregisterStep: (index: number) => void
+  unregisterStep: (index: number) => void;
 }

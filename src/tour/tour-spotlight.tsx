@@ -1,7 +1,7 @@
-import { forwardRef, useEffect, useState } from 'react'
-import { Box, Portal, BoxProps } from '@chakra-ui/react'
-import { useTour } from './use-tour'
-import { TourSpotlightProps } from './tour.types'
+import { Box, BoxProps, Portal } from '@chakra-ui/react';
+import { forwardRef, useEffect, useState } from 'react';
+import { TourSpotlightProps } from './tour.types';
+import { useTour } from './use-tour';
 
 /**
  * TourSpotlight - Highlights the target element with an overlay
@@ -16,46 +16,46 @@ export const TourSpotlight = forwardRef<
     motionPreset = 'fade',
     spacing = 8,
     ...rest
-  } = props
+  } = props;
 
-  const tour = useTour()
-  const [targetRect, setTargetRect] = useState<DOMRect | null>(null)
+  const tour = useTour();
+  const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
 
   // Update target rectangle when step changes
   useEffect(() => {
     if (!tour.isActive || !tour.targetElement) {
-      setTargetRect(null)
-      return
+      setTargetRect(null);
+      return;
     }
 
     const updateRect = () => {
       if (tour.targetElement) {
-        const rect = tour.targetElement.getBoundingClientRect()
-        setTargetRect(rect)
+        const rect = tour.targetElement.getBoundingClientRect();
+        setTargetRect(rect);
       }
-    }
+    };
 
-    updateRect()
+    updateRect();
 
     // Update on scroll and resize
-    window.addEventListener('scroll', updateRect, true)
-    window.addEventListener('resize', updateRect)
+    window.addEventListener('scroll', updateRect, true);
+    window.addEventListener('resize', updateRect);
 
     return () => {
-      window.removeEventListener('scroll', updateRect, true)
-      window.removeEventListener('resize', updateRect)
-    }
-  }, [tour.isActive, tour.targetElement, tour.currentStep])
+      window.removeEventListener('scroll', updateRect, true);
+      window.removeEventListener('resize', updateRect);
+    };
+  }, [tour.isActive, tour.targetElement, tour.currentStep]);
 
   if (!tour.isActive || hideOverlay || !targetRect) {
-    return null
+    return null;
   }
 
   const handleClick = () => {
     if (closeOnClick) {
-      tour.dismiss()
+      tour.dismiss();
     }
-  }
+  };
 
   return (
     <Portal>
@@ -71,11 +71,7 @@ export const TourSpotlight = forwardRef<
         {...rest}
       >
         {/* SVG mask for the spotlight effect */}
-        <svg
-          width="100%"
-          height="100%"
-          style={{ position: 'absolute', inset: 0 }}
-        >
+        <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
           <defs>
             <mask id="tour-spotlight-mask">
               {/* White background */}
@@ -123,7 +119,7 @@ export const TourSpotlight = forwardRef<
         />
       </Box>
     </Portal>
-  )
-})
+  );
+});
 
-TourSpotlight.displayName = 'TourSpotlight'
+TourSpotlight.displayName = 'TourSpotlight';
