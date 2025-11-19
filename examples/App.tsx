@@ -84,6 +84,10 @@ const SettingsIcon = () => (
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
 
+  console.log({
+    isOpen
+  }, '---------')
+
   return (
     <Box minH="100vh" bg="gray.50" p={8}>
       <VStack gap={8} maxW="4xl" mx="auto">
@@ -179,7 +183,7 @@ export default function App() {
         </Card.Root>
       </VStack>
 
-      <Tour isActive={isOpen} onComplete={() => setIsOpen(false)}>
+      <Tour isActive={isOpen} onComplete={() => setIsOpen(false)} onDismiss={() => setIsOpen(false)}>
         <TourDialog data-target="[data-tour=add-users]" placement="bottom">
           <TourDialogCloseButton />
           <TourDialogHeader>Welcome to the Tour! 👋</TourDialogHeader>

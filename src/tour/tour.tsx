@@ -34,7 +34,10 @@ export function Tour(props: TourProps) {
   const targetRef = useRef<HTMLElement | null>(null)
 
   // Count total steps from children
-  const totalSteps = Children.count(children)
+  const stepChildren = Children.toArray(children).filter(
+    (child: any) => child.type?.displayName !== 'TourSpotlight'
+  );
+  const totalSteps = stepChildren.length;
 
   // Update target element when step changes
   useEffect(() => {
@@ -111,22 +114,26 @@ export function Tour(props: TourProps) {
     setIsActive(true)
   }, [initialStep, setIsActive])
 
+  const targetSelector = useMemo(() => steps.get(currentStep) || null, [steps, currentStep])
+
   // Expose API via ref
   const api: TourStepAPI = useMemo(
-    () => ({
-      isActive: isActive ?? false,
-      isCompleted,
-      currentStep,
-      totalSteps,
-      targetElement: targetRef.current,
-      targetRef,
-      nextStep,
-      prevStep,
-      goToStep,
-      dismiss,
-      complete,
-      start,
-    }),
+    () => {
+      return ({
+        isActive: isActive ?? false,
+        isCompleted,
+        currentStep,
+        totalSteps,
+        targetElement: targetSelector ? document.querySelector<HTMLElement>(targetSelector) : null,
+        targetRef,
+        nextStep,
+        prevStep,
+        goToStep,
+        dismiss,
+        complete,
+        start,
+      });
+    },
     [
       isActive,
       isCompleted,
@@ -138,6 +145,7 @@ export function Tour(props: TourProps) {
       dismiss,
       complete,
       start,
+      targetSelector,
     ]
   )
 
