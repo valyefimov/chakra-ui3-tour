@@ -9,8 +9,10 @@ import {
   Portal,
 } from '@chakra-ui/react';
 import { ButtonHTMLAttributes, forwardRef, HTMLAttributes, useEffect, useRef } from 'react';
+import { TourSizeProvider, TourVariantProvider } from './tour-context';
 import { TourDialogProps } from './tour.types';
 import { useTour } from './use-tour';
+import { useTourSize, useTourStyles, useTourVariant } from './use-tour-styles';
 
 // Helper to merge refs
 function mergeRefs<T>(...refs: Array<React.Ref<T> | undefined>) {
@@ -46,12 +48,22 @@ const CloseIcon = () => (
  * TourDialog - Main dialog component that appears near the target element
  */
 export const TourDialog = forwardRef<HTMLDivElement, TourDialogProps>((props, ref) => {
-  const { children, 'data-target': dataTarget, placement = 'bottom', offset = 8, ...rest } = props;
+  const {
+    children,
+    size = 'md',
+    variant = 'default',
+    'data-target': dataTarget,
+    placement = 'bottom',
+    offset = 8,
+    ...rest
+  } = props;
 
   const tour = useTour();
   const contentRef = useRef<HTMLDivElement>(null);
   const stepIndex = (props as any)._tourStepIndex ?? 0;
   const isCurrent = (props as any)._isCurrent ?? false;
+
+  const styles = useTourStyles({ size, variant });
 
   // Register this step with the tour
   useEffect(() => {
@@ -85,26 +97,15 @@ export const TourDialog = forwardRef<HTMLDivElement, TourDialogProps>((props, re
   }
 
   return (
-    <Portal>
-      <Box
-        ref={mergeRefs(ref, popperRef, contentRef)}
-        position="absolute"
-        zIndex="popover"
-        bg="white"
-        border="1px solid"
-        borderColor="gray.200"
-        borderRadius="md"
-        boxShadow="lg"
-        maxW="sm"
-        _dark={{
-          bg: 'gray.800',
-          borderColor: 'gray.700',
-        }}
-        {...rest}
-      >
-        {children}
-      </Box>
-    </Portal>
+    <TourVariantProvider value={variant}>
+      <TourSizeProvider value={size}>
+        <Portal>
+          <Box ref={mergeRefs(ref, popperRef, contentRef)} {...styles.dialog} {...rest}>
+            {children}
+          </Box>
+        </Portal>
+      </TourSizeProvider>
+    </TourVariantProvider>
   );
 });
 
@@ -117,21 +118,11 @@ export const TourDialogHeader = forwardRef<
   HTMLDivElement,
   BoxProps & HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
-  return (
-    <Box
-      ref={ref}
-      px={4}
-      py={3}
-      fontSize="lg"
-      fontWeight="semibold"
-      borderBottom="1px solid"
-      borderColor="gray.200"
-      _dark={{
-        borderColor: 'gray.700',
-      }}
-      {...props}
-    />
-  );
+  const size = useTourSize();
+  const variant = useTourVariant();
+  const styles = useTourStyles({ size, variant });
+
+  return <Box ref={ref} {...styles.header} {...props} />;
 });
 
 TourDialogHeader.displayName = 'TourDialogHeader';
@@ -141,19 +132,11 @@ TourDialogHeader.displayName = 'TourDialogHeader';
  */
 export const TourDialogBody = forwardRef<HTMLDivElement, BoxProps & HTMLAttributes<HTMLDivElement>>(
   (props, ref) => {
-    return (
-      <Box
-        ref={ref}
-        px={4}
-        py={3}
-        fontSize="sm"
-        color="gray.700"
-        _dark={{
-          color: 'gray.300',
-        }}
-        {...props}
-      />
-    );
+    const size = useTourSize();
+    const variant = useTourVariant();
+    const styles = useTourStyles({ size, variant });
+
+    return <Box ref={ref} {...styles.body} {...props} />;
   },
 );
 
@@ -166,22 +149,11 @@ export const TourDialogFooter = forwardRef<
   HTMLDivElement,
   BoxProps & HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
-  return (
-    <Box
-      ref={ref}
-      px={4}
-      py={3}
-      display="flex"
-      alignItems="center"
-      justifyContent="space-between"
-      borderTop="1px solid"
-      borderColor="gray.200"
-      _dark={{
-        borderColor: 'gray.700',
-      }}
-      {...props}
-    />
-  );
+  const size = useTourSize();
+  const variant = useTourVariant();
+  const styles = useTourStyles({ size, variant });
+
+  return <Box ref={ref} {...styles.footer} {...props} />;
 });
 
 TourDialogFooter.displayName = 'TourDialogFooter';
@@ -194,15 +166,15 @@ export const TourDialogCloseButton = forwardRef<
   Omit<IconButtonProps, 'aria-label'> & ButtonHTMLAttributes<HTMLButtonElement>
 >((props, ref) => {
   const tour = useTour();
+  const size = useTourSize();
+  const variant = useTourVariant();
+  const styles = useTourStyles({ size, variant });
 
   return (
     <IconButton
       ref={ref}
-      position="absolute"
-      top={2}
-      right={2}
+      {...styles.closeButton}
       size="sm"
-      variant="ghost"
       aria-label="Close tour"
       onClick={tour.dismiss}
       {...props}
@@ -221,7 +193,11 @@ export const TourDialogActions = forwardRef<
   HTMLDivElement,
   BoxProps & HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
-  return <Box ref={ref} display="flex" gap={2} alignItems="center" {...props} />;
+  const size = useTourSize();
+  const variant = useTourVariant();
+  const styles = useTourStyles({ size, variant });
+
+  return <Box ref={ref} {...styles.actions} {...props} />;
 });
 
 TourDialogActions.displayName = 'TourDialogActions';
@@ -229,17 +205,21 @@ TourDialogActions.displayName = 'TourDialogActions';
 /**
  * TourNextButton - Button to go to the next step
  */
+
 export const TourNextButton = forwardRef<
   HTMLButtonElement,
   ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
 >((props, ref) => {
-  const tour = useTour();
   const { children = 'Next', ...rest } = props;
+  const tour = useTour();
+  const size = useTourSize();
+  const variant = useTourVariant();
+  const styles = useTourStyles({ size, variant });
 
   const isLastStep = tour.currentStep === tour.totalSteps - 1;
 
   return (
-    <Button ref={ref} size="sm" colorScheme="blue" onClick={tour.nextStep} {...rest}>
+    <Button ref={ref} {...styles.nextButton} size="sm" onClick={tour.nextStep} {...rest}>
       {isLastStep && children === 'Next' ? 'Finish' : children}
     </Button>
   );
@@ -250,20 +230,24 @@ TourNextButton.displayName = 'TourNextButton';
 /**
  * TourPrevButton - Button to go to the previous step
  */
+
 export const TourPrevButton = forwardRef<
   HTMLButtonElement,
   ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
 >((props, ref) => {
-  const tour = useTour();
   const { children = 'Previous', ...rest } = props;
+  const tour = useTour();
+  const size = useTourSize();
+  const variant = useTourVariant();
+  const styles = useTourStyles({ size, variant });
 
   const isFirstStep = tour.currentStep === 0;
 
   return (
     <Button
       ref={ref}
+      {...styles.prevButton}
       size="sm"
-      variant="ghost"
       onClick={tour.prevStep}
       disabled={isFirstStep}
       {...rest}
@@ -278,15 +262,19 @@ TourPrevButton.displayName = 'TourPrevButton';
 /**
  * TourDismissButton - Button to dismiss/close the tour
  */
+
 export const TourDismissButton = forwardRef<
   HTMLButtonElement,
   ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
 >((props, ref) => {
-  const tour = useTour();
   const { children = 'Skip', ...rest } = props;
+  const tour = useTour();
+  const size = useTourSize();
+  const variant = useTourVariant();
+  const styles = useTourStyles({ size, variant });
 
   return (
-    <Button ref={ref} size="sm" variant="ghost" onClick={tour.dismiss} {...rest}>
+    <Button ref={ref} {...styles.dismissButton} size="sm" onClick={tour.dismiss} {...rest}>
       {children}
     </Button>
   );

@@ -1,6 +1,6 @@
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { renderHook } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { Tour, useTour } from '../index';
 
 const TestProvider = ({ children }: { children: React.ReactNode }) => (
@@ -9,17 +9,23 @@ const TestProvider = ({ children }: { children: React.ReactNode }) => (
 
 describe('useTour', () => {
   it('should throw error when used outside Tour component', () => {
-    // Suppress console.error for this test
+    // This test verifies that useTour throws when not inside a Tour provider
+    // Suppress the expected error output from React
     const originalError = console.error;
-    console.error = () => {};
+    const originalWarn = console.warn;
+    console.error = vi.fn();
+    console.warn = vi.fn();
 
-    expect(() => {
-      renderHook(() => useTour(), {
-        wrapper: TestProvider,
-      });
-    }).toThrow('useTour must be used within a Tour component');
-
-    console.error = originalError;
+    try {
+      expect(() => {
+        renderHook(() => useTour(), {
+          wrapper: TestProvider,
+        });
+      }).toThrow('useTour must be used within a Tour component');
+    } finally {
+      console.error = originalError;
+      console.warn = originalWarn;
+    }
   });
 
   it('should return tour context when used inside Tour component', () => {

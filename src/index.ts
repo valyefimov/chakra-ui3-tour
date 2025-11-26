@@ -11,10 +11,9 @@ export {
   TourDismissButton,
   TourSpotlight,
   useTour,
-  tourAnatomy,
   tourTheme,
-  defineTourConfig,
-  defineTourStyle,
+  FALLBACK_STYLES,
+  mergeSlotStyles,
 } from './tour';
 
 export type {
