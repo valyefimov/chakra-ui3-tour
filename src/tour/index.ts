@@ -12,7 +12,8 @@ export {
 } from './tour-dialog';
 export { TourSpotlight } from './tour-spotlight';
 export { useTour } from './use-tour';
-export { tourAnatomy, tourTheme, defineTourConfig, defineTourStyle } from './theme';
+export { tourTheme } from './theme';
+export { FALLBACK_STYLES, mergeSlotStyles } from './tour-styles';
 export type {
   TourProps,
   TourDialogProps,

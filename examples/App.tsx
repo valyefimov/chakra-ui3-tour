@@ -83,14 +83,6 @@ const SettingsIcon = () => (
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
-
-  console.log(
-    {
-      isOpen,
-    },
-    '---------',
-  );
-
   return (
     <Box minH="100vh" bg="gray.50" p={8}>
       <VStack gap={8} maxW="4xl" mx="auto">
@@ -135,7 +127,7 @@ export default function App() {
               borderColor="blue.500"
             >
               <Text fontSize="sm" color="blue.900">
-                💡 Click "Start Interactive Tour" to see the component in action!
+                💡 Click &quot;Start Interactive Tour&quot; to see the component in action!
               </Text>
             </Box>
           </Stack>
@@ -195,8 +187,8 @@ export default function App() {
           <TourDialogCloseButton />
           <TourDialogHeader>Welcome to the Tour! 👋</TourDialogHeader>
           <TourDialogBody>
-            This is the "Add User" button. Click here to add new users to your system. Let's explore
-            the other features!
+            This is the &quot;Add User&quot; button. Click here to add new users to your system.
+            Let&apos;s explore the other features!
           </TourDialogBody>
           <TourDialogFooter>
             <Text fontSize="sm" color="gray.500">

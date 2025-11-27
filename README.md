@@ -36,28 +36,28 @@ npm install @chakra-ui/react react react-dom
 ## Quick Start
 
 ```tsx
+import { Button, Text } from '@chakra-ui/react';
 import {
   Tour,
   TourDialog,
-  TourDialogHeader,
-  TourDialogBody,
-  TourDialogFooter,
-  TourDialogCloseButton,
   TourDialogActions,
-  TourNextButton,
+  TourDialogBody,
+  TourDialogCloseButton,
+  TourDialogFooter,
+  TourDialogHeader,
   TourDismissButton,
+  TourNextButton,
   TourSpotlight,
-} from 'chakra-ui3-tour'
-import { Button, Text } from '@chakra-ui/react'
-import { useState } from 'react'
+} from 'chakra-ui3-tour';
+import { useState } from 'react';
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Start Tour</Button>
-      
+
       <Button data-tour="step-1">Add User</Button>
       <Button data-tour="step-2">Edit Settings</Button>
 
@@ -65,9 +65,7 @@ function App() {
         <TourDialog data-target="[data-tour='step-1']">
           <TourDialogCloseButton />
           <TourDialogHeader>Welcome! 👋</TourDialogHeader>
-          <TourDialogBody>
-            This is the Add User button. Click here to add new users.
-          </TourDialogBody>
+          <TourDialogBody>This is the Add User button. Click here to add new users.</TourDialogBody>
           <TourDialogFooter>
             <Text fontSize="sm">Step 1 of 2</Text>
             <TourDialogActions>
@@ -80,9 +78,7 @@ function App() {
         <TourDialog data-target="[data-tour='step-2']">
           <TourDialogCloseButton />
           <TourDialogHeader>Settings ⚙️</TourDialogHeader>
-          <TourDialogBody>
-            Access your settings here to customize the application.
-          </TourDialogBody>
+          <TourDialogBody>Access your settings here to customize the application.</TourDialogBody>
           <TourDialogFooter>
             <Text fontSize="sm">Step 2 of 2</Text>
             <TourDialogActions>
@@ -94,7 +90,7 @@ function App() {
         <TourSpotlight />
       </Tour>
     </>
-  )
+  );
 }
 ```
 
@@ -106,15 +102,15 @@ The main component that wraps all tour steps and manages tour state.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | - | Tour dialog components |
-| `isActive` | `boolean` | - | Whether the tour is active (controlled) |
-| `defaultIsActive` | `boolean` | `false` | Whether the tour is active by default (uncontrolled) |
-| `initialStep` | `number` | `0` | The initial step index |
-| `onComplete` | `() => void` | - | Called when the tour is completed |
-| `onDismiss` | `(index: number) => void` | - | Called when a step is dismissed |
-| `tourRef` | `RefObject<TourStepAPI>` | - | Ref to access tour API methods |
+| Prop              | Type                      | Default | Description                                          |
+| ----------------- | ------------------------- | ------- | ---------------------------------------------------- |
+| `children`        | `ReactNode`               | -       | Tour dialog components                               |
+| `isActive`        | `boolean`                 | -       | Whether the tour is active (controlled)              |
+| `defaultIsActive` | `boolean`                 | `false` | Whether the tour is active by default (uncontrolled) |
+| `initialStep`     | `number`                  | `0`     | The initial step index                               |
+| `onComplete`      | `() => void`              | -       | Called when the tour is completed                    |
+| `onDismiss`       | `(index: number) => void` | -       | Called when a step is dismissed                      |
+| `tourRef`         | `RefObject<TourStepAPI>`  | -       | Ref to access tour API methods                       |
 
 ### TourDialog
 
@@ -122,12 +118,12 @@ A dialog component that appears near the target element.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | - | Dialog content |
-| `data-target` | `string` | - | CSS selector for the target element |
-| `placement` | `'top' \| 'bottom' \| 'left' \| 'right' \| 'auto'` | `'bottom'` | Placement relative to target |
-| `offset` | `number` | `8` | Offset from target in pixels |
+| Prop          | Type                                               | Default    | Description                         |
+| ------------- | -------------------------------------------------- | ---------- | ----------------------------------- |
+| `children`    | `ReactNode`                                        | -          | Dialog content                      |
+| `data-target` | `string`                                           | -          | CSS selector for the target element |
+| `placement`   | `'top' \| 'bottom' \| 'left' \| 'right' \| 'auto'` | `'bottom'` | Placement relative to target        |
+| `offset`      | `number`                                           | `8`        | Offset from target in pixels        |
 
 ### TourSpotlight
 
@@ -135,12 +131,12 @@ Creates a spotlight effect highlighting the target element.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `hideOverlay` | `boolean` | `false` | Whether to hide the overlay |
-| `closeOnClick` | `boolean` | `false` | Whether clicking overlay closes tour |
-| `motionPreset` | `'fade' \| 'none'` | `'fade'` | Animation preset |
-| `spacing` | `number` | `8` | Spacing around spotlight in pixels |
+| Prop           | Type               | Default  | Description                          |
+| -------------- | ------------------ | -------- | ------------------------------------ |
+| `hideOverlay`  | `boolean`          | `false`  | Whether to hide the overlay          |
+| `closeOnClick` | `boolean`          | `false`  | Whether clicking overlay closes tour |
+| `motionPreset` | `'fade' \| 'none'` | `'fade'` | Animation preset                     |
+| `spacing`      | `number`           | `8`      | Spacing around spotlight in pixels   |
 
 ### Other Components
 
@@ -160,34 +156,30 @@ Creates a spotlight effect highlighting the target element.
 Access the tour context and control the tour programmatically.
 
 ```tsx
-import { useTour } from 'chakra-ui3-tour'
+import { useTour } from 'chakra-ui3-tour';
 
 function CustomTourButton() {
-  const tour = useTour()
+  const tour = useTour();
 
-  return (
-    <Button onClick={() => tour.goToStep(2)}>
-      Skip to step 3
-    </Button>
-  )
+  return <Button onClick={() => tour.goToStep(2)}>Skip to step 3</Button>;
 }
 ```
 
 #### Returns
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `isActive` | `boolean` | Whether the tour is active |
-| `isCompleted` | `boolean` | Whether the tour is completed |
-| `currentStep` | `number` | Current step index |
-| `totalSteps` | `number` | Total number of steps |
-| `targetElement` | `HTMLElement \| null` | Current target element |
-| `nextStep` | `() => void` | Go to next step |
-| `prevStep` | `() => void` | Go to previous step |
-| `goToStep` | `(index: number) => void` | Go to specific step |
-| `dismiss` | `() => void` | Dismiss the tour |
-| `complete` | `() => void` | Complete the tour |
-| `start` | `() => void` | Start the tour |
+| Property        | Type                      | Description                   |
+| --------------- | ------------------------- | ----------------------------- |
+| `isActive`      | `boolean`                 | Whether the tour is active    |
+| `isCompleted`   | `boolean`                 | Whether the tour is completed |
+| `currentStep`   | `number`                  | Current step index            |
+| `totalSteps`    | `number`                  | Total number of steps         |
+| `targetElement` | `HTMLElement \| null`     | Current target element        |
+| `nextStep`      | `() => void`              | Go to next step               |
+| `prevStep`      | `() => void`              | Go to previous step           |
+| `goToStep`      | `(index: number) => void` | Go to specific step           |
+| `dismiss`       | `() => void`              | Dismiss the tour              |
+| `complete`      | `() => void`              | Complete the tour             |
+| `start`         | `() => void`              | Start the tour                |
 
 ## Advanced Usage
 
@@ -195,7 +187,7 @@ function CustomTourButton() {
 
 ```tsx
 function ControlledTour() {
-  const [isActive, setIsActive] = useState(false)
+  const [isActive, setIsActive] = useState(false);
 
   return (
     <Tour
@@ -205,7 +197,7 @@ function ControlledTour() {
     >
       {/* Tour steps */}
     </Tour>
-  )
+  );
 }
 ```
 
@@ -213,11 +205,11 @@ function ControlledTour() {
 
 ```tsx
 function TourWithRef() {
-  const tourRef = useRef<TourStepAPI>(null)
+  const tourRef = useRef<TourStepAPI>(null);
 
   const skipToEnd = () => {
-    tourRef.current?.goToStep(tourRef.current.totalSteps - 1)
-  }
+    tourRef.current?.goToStep(tourRef.current.totalSteps - 1);
+  };
 
   return (
     <>
@@ -226,7 +218,7 @@ function TourWithRef() {
         {/* Tour steps */}
       </Tour>
     </>
-  )
+  );
 }
 ```
 
@@ -243,9 +235,7 @@ function TourWithRef() {
   <TourDialogHeader fontSize="2xl" fontWeight="bold">
     Custom Styled Step
   </TourDialogHeader>
-  <TourDialogBody>
-    You can customize any part of the tour dialog!
-  </TourDialogBody>
+  <TourDialogBody>You can customize any part of the tour dialog!</TourDialogBody>
 </TourDialog>
 ```
 
@@ -270,11 +260,7 @@ function TourWithRef() {
 ### Custom Spotlight
 
 ```tsx
-<TourSpotlight
-  spacing={16}
-  closeOnClick={true}
-  motionPreset="fade"
-/>
+<TourSpotlight spacing={16} closeOnClick={true} motionPreset="fade" />
 ```
 
 ## Theming
@@ -282,14 +268,88 @@ function TourWithRef() {
 The Tour component uses Chakra UI's theming system. You can customize it by extending your theme:
 
 ```tsx
-import { extendTheme } from '@chakra-ui/react'
-import { tourTheme } from 'chakra-ui3-tour'
+import { createSystem, defaultConfig, mergeConfigs } from '@chakra-ui/react';
+import { tourTheme } from 'chakra-ui3-tour';
 
-const theme = extendTheme({
-  components: {
-    Tour: tourTheme,
+const system = createSystem(
+  mergeConfigs(defaultConfig, {
+    theme: {
+      slotRecipes: {
+        Tour: tourTheme,
+      },
+    },
+  }),
+);
+```
+
+### Different Sizes with theme
+
+You can control the size of each TourDialog using the size prop. Available sizes:
+
+| Size | Description                                        |
+| ---- | -------------------------------------------------- |
+| `sm` | Small dialog — minimal padding and smaller font    |
+| `md` | Medium dialog — default size with standard spacing |
+| `lg` | Large dialog — more padding and larger font        |
+
+```tsx
+<Tour isActive={true}>
+  <TourDialog data-target="[data-tour='top']" placement="top" size="sm">
+    <TourDialogBody>Small dialog</TourDialogBody>
+  </TourDialog>
+
+  <TourDialog data-target="[data-tour='left']" placement="left" size="md">
+    <TourDialogBody>Medium dialog</TourDialogBody>
+  </TourDialog>
+
+  <TourDialog data-target="[data-tour='right']" placement="right" size="lg">
+    <TourDialogBody>Large dialog</TourDialogBody>
+  </TourDialog>
+</Tour>
+```
+
+### Custom Variants with theme
+
+You can extend the TourDialog theme with your own variants. Define custom styling for each variant and pass it via the variant prop.
+
+```tsx
+// 1. Extend the Tour theme
+export const customTourTheme = defineSlotRecipe({
+  slots: tourAnatomy.keys,
+  base: tourTheme.base, // reuse base styles
+  variants: {
+    ...tourTheme.variants, // keep existing variants like size
+    fancy: {
+      dialog: {
+        bg: 'purple.50',
+        borderColor: 'purple.400',
+        boxShadow: '0 0 0 6px rgba(128, 90, 213, 0.3)',
+      },
+      header: { color: 'purple.700', fontWeight: 'bold' },
+      body: { color: 'purple.600' },
+      footer: { borderTopColor: 'purple.300' },
+    },
+    dark: {
+      dialog: { bg: 'gray.800', borderColor: 'gray.600' },
+      header: { color: 'white' },
+      body: { color: 'gray.200' },
+      footer: { borderTopColor: 'gray.700' },
+    },
   },
-})
+});
+```
+
+```tsx
+// 2. Use your custom variant
+<Tour isActive={true}>
+  <TourDialog data-target="[data-tour='top']" placement="top" variant="fancy">
+    <TourDialogBody>Fancy dialog variant</TourDialogBody>
+  </TourDialog>
+
+  <TourDialog data-target="[data-tour='left']" placement="left" variant="dark">
+    <TourDialogBody>Dark dialog variant</TourDialogBody>
+  </TourDialog>
+</Tour>
 ```
 
 ### Anatomy
@@ -304,14 +364,18 @@ The tour component has the following parts:
 - `body` - The dialog body
 - `footer` - The dialog footer
 - `arrow` - The positioning arrow
+- `actions` - Container for action buttons (Next, Prev, etc.)
 - `closeButton` - The close button
+- `nextButton`- The next button
+- `prevButton` - The prev button
+- `dismissButton` - The dismiss button
 
 ### Custom Theme
 
 ```tsx
-import { defineTourStyle } from 'chakra-ui3-tour'
+import { defineTourStyle } from 'chakra-ui3-tour';
 
-const customTourTheme = defineTourStyle({
+const myCustomTourTheme = defineSlotRecipe({
   header: {
     bg: 'purple.500',
     color: 'white',
@@ -319,7 +383,24 @@ const customTourTheme = defineTourStyle({
   body: {
     fontSize: 'md',
   },
-})
+});
+```
+
+## Registering Your Theme
+
+```tsx
+import { createSystem, defaultConfig, mergeConfigs } from '@chakra-ui/react';
+import { myCustomTourTheme } from './my-tour-theme';
+
+const system = createSystem(
+  mergeConfigs(defaultConfig, {
+    theme: {
+      slotRecipes: {
+        Tour: myCustomTourTheme,
+      },
+    },
+  }),
+);
 ```
 
 ## Live Demo
@@ -341,6 +422,7 @@ npm run dev
 ```
 
 The demo includes:
+
 - A complete user management dashboard example
 - Multi-step tour with 4 interactive steps
 - Spotlight highlighting
@@ -392,6 +474,7 @@ npm run dev
 ## Browser Support
 
 Works in all modern browsers that support:
+
 - ES6
 - CSS Grid
 - Flexbox
@@ -417,6 +500,8 @@ chakra-ui3-tour/
 │       ├── tour-spotlight.tsx    # Spotlight overlay
 │       ├── tour-context.tsx      # React context
 │       ├── use-tour.ts          # Tour hook
+│       ├── use-tour-styles.ts   # Tour styles hook
+│       ├── tour-styles.ts       # Tour default styles
 │       ├── tour.types.ts        # TypeScript types
 │       ├── theme.ts             # Theming utilities
 │       └── index.ts             # Public exports

@@ -7,7 +7,7 @@ A complete, production-ready Tour component library for Chakra UI v3, inspired b
 ### Components Created
 
 1. **Tour** - Main orchestrator component
-2. **TourDialog** - Positioned dialog component  
+2. **TourDialog** - Positioned dialog component
 3. **TourDialogHeader** - Dialog header section
 4. **TourDialogBody** - Dialog body section
 5. **TourDialogFooter** - Dialog footer section
@@ -23,8 +23,6 @@ A complete, production-ready Tour component library for Chakra UI v3, inspired b
 - **useTour()** - Access tour context and controls
 - **tourAnatomy** - Chakra UI anatomy definition
 - **tourTheme** - Default theme configuration
-- **defineTourConfig** - Theme extension helper
-- **defineTourStyle** - Style definition helper
 
 ### TypeScript Support
 
@@ -79,13 +77,22 @@ chakra-ui3-tour/
 ## 🚀 How to Use
 
 ### Installation
+
 ```bash
 npm install chakra-ui3-tour @chakra-ui/react react react-dom
 ```
 
 ### Basic Example
+
 ```tsx
-import { Tour, TourDialog, TourDialogHeader, TourDialogBody, TourNextButton, TourSpotlight } from 'chakra-ui3-tour'
+import {
+  Tour,
+  TourDialog,
+  TourDialogBody,
+  TourDialogHeader,
+  TourNextButton,
+  TourSpotlight,
+} from 'chakra-ui3-tour';
 
 <Tour isActive={true}>
   <TourDialog data-target="[data-tour='step-1']">
@@ -94,7 +101,7 @@ import { Tour, TourDialog, TourDialogHeader, TourDialogBody, TourNextButton, Tou
     <TourNextButton />
   </TourDialog>
   <TourSpotlight />
-</Tour>
+</Tour>;
 ```
 
 ## 📊 Build Output
@@ -102,7 +109,7 @@ import { Tour, TourDialog, TourDialogHeader, TourDialogBody, TourNextButton, Tou
 ```
 ✅ Library built successfully with tsup
 - ESM: dist/index.mjs (15.62 KB)
-- CJS: dist/index.js (18.42 KB)  
+- CJS: dist/index.js (18.42 KB)
 - Types: dist/index.d.ts (11.37 KB)
 - Source maps included
 ```
@@ -117,7 +124,7 @@ import { Tour, TourDialog, TourDialogHeader, TourDialogBody, TourNextButton, Tou
 ## 📚 Documentation
 
 1. **README.md** - Complete API documentation, usage guide, theming
-2. **QUICKSTART.md** - Step-by-step getting started guide  
+2. **QUICKSTART.md** - Step-by-step getting started guide
 3. **EXAMPLES.md** - 12+ real-world code examples
 4. **IMPLEMENTATION.md** - Technical architecture and decisions
 5. **CHANGELOG.md** - Version history
@@ -136,6 +143,7 @@ npm run format           # Format code with Prettier
 ## 🎨 Example Application
 
 Fully functional demo at `examples/App.tsx`:
+
 - 4-step interactive tour
 - User management dashboard theme
 - Multiple button placements
@@ -147,7 +155,7 @@ Run with: `npm run dev` then open http://localhost:5173
 ## 🔑 Key Technical Decisions
 
 1. **React Context** - Clean state sharing without prop drilling
-2. **SVG Masks** - Crisp, performant spotlight highlighting  
+2. **SVG Masks** - Crisp, performant spotlight highlighting
 3. **Popper Integration** - Smart, automatic positioning
 4. **Step Registration** - Automatic tracking without manual indexing
 5. **Composition Pattern** - Flexible, customizable components
@@ -191,7 +199,7 @@ Run with: `npm run dev` then open http://localhost:5173
 ## 📈 Future Enhancements (Optional)
 
 - Animation presets
-- Progress indicators  
+- Progress indicators
 - Keyboard shortcuts
 - LocalStorage helpers
 - Analytics hooks
@@ -201,9 +209,10 @@ Run with: `npm run dev` then open http://localhost:5173
 ## 🎉 Summary
 
 This is a complete, production-ready tour library with:
+
 - 11 components
 - 1 hook
-- 5 theme utilities  
+- 5 theme utilities
 - Full TypeScript support
 - Comprehensive documentation
 - Working examples

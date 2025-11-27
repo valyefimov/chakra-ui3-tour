@@ -1,3 +1,4 @@
+import { BoxProps } from '@chakra-ui/react';
 import { ReactNode, RefObject } from 'react';
 
 export interface TourStepAPI {
@@ -83,7 +84,7 @@ export interface TourProps {
   tourRef?: RefObject<TourStepAPI>;
 }
 
-export interface TourDialogProps {
+export interface TourDialogProps extends BoxProps {
   /**
    * The content of the dialog
    */
@@ -111,9 +112,19 @@ export interface TourDialogProps {
    * @default 8
    */
   offset?: number;
+  /**
+   * Size variant of the dialog
+   * @default "md"
+   */
+  size?: 'sm' | 'md' | 'lg';
+  /**
+   * Variant of the dialog
+   * @default "md"
+   */
+  variant?: string;
 }
 
-export interface TourSpotlightProps {
+export interface TourSpotlightProps extends BoxProps {
   /**
    * Whether to hide the overlay
    */
