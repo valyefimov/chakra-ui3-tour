@@ -1,4 +1,4 @@
-import { useControllableState } from '@chakra-ui/react-use-controllable-state';
+import { useControllableState } from '@chakra-ui/react';
 import {
   Children,
   ReactElement,

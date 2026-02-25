@@ -1,10 +1,6 @@
-import { anatomy } from '@chakra-ui/anatomy';
-import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system';
+import { defineSlotRecipe, type SystemStyleObject } from '@chakra-ui/react';
 
-/**
- * Tour component anatomy
- */
-export const tourAnatomy = anatomy('tour').parts(
+const tourParts = [
   'spotlight',
   'overlay',
   'dialog',
@@ -14,16 +10,27 @@ export const tourAnatomy = anatomy('tour').parts(
   'footer',
   'arrow',
   'closeButton',
-);
+] as const;
 
-const { defineMultiStyleConfig, definePartsStyle } = createMultiStyleConfigHelpers(
-  tourAnatomy.keys,
-);
+type TourPart = (typeof tourParts)[number];
+type TourStyle = Partial<Record<TourPart, SystemStyleObject>>;
+
+/**
+ * Tour component anatomy
+ */
+export const tourAnatomy = {
+  keys: tourParts,
+} as const;
+
+/**
+ * Helper to define slot styles for tour parts
+ */
+export const defineTourStyle = <T extends TourStyle>(styles: T) => styles;
 
 /**
  * Base styles for the tour component
  */
-const baseStyle = definePartsStyle({
+const baseStyle = defineTourStyle({
   spotlight: {
     position: 'fixed',
     inset: 0,
@@ -100,7 +107,7 @@ const baseStyle = definePartsStyle({
  * Size variants for the tour component
  */
 const sizes = {
-  sm: definePartsStyle({
+  sm: defineTourStyle({
     dialog: {
       maxW: 'xs',
     },
@@ -119,7 +126,7 @@ const sizes = {
       py: 2,
     },
   }),
-  md: definePartsStyle({
+  md: defineTourStyle({
     dialog: {
       maxW: 'sm',
     },
@@ -138,7 +145,7 @@ const sizes = {
       py: 3,
     },
   }),
-  lg: definePartsStyle({
+  lg: defineTourStyle({
     dialog: {
       maxW: 'md',
     },
@@ -162,10 +169,14 @@ const sizes = {
 /**
  * Default tour theme configuration
  */
-export const tourTheme = defineMultiStyleConfig({
-  baseStyle,
-  sizes,
-  defaultProps: {
+export const tourTheme = defineSlotRecipe({
+  className: 'chakra-tour',
+  slots: tourAnatomy.keys,
+  base: baseStyle,
+  variants: {
+    size: sizes,
+  },
+  defaultVariants: {
     size: 'md',
   },
 });
@@ -173,4 +184,12 @@ export const tourTheme = defineMultiStyleConfig({
 /**
  * Helper to extend tour theme
  */
-export { defineMultiStyleConfig as defineTourConfig, definePartsStyle as defineTourStyle };
+type TourRecipeConfig = Omit<Parameters<typeof defineSlotRecipe>[0], 'slots'> & {
+  slots?: readonly TourPart[];
+};
+
+export const defineTourConfig = (config: TourRecipeConfig) =>
+  defineSlotRecipe({
+    slots: tourAnatomy.keys,
+    ...config,
+  });

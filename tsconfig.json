@@ -16,9 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "chakra-ui3-datepicker": ["src/index.ts"],
-      "chakra-ui3-datepicker/*": ["src/*"]
-    }
+      "chakra-ui3-datepicker/*": ["src/*"],
+    },
   },
-  "include": ["src", "vite.config.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src", "vite.config.mts", "vitest.config.mts"],
+  "exclude": ["node_modules", "dist"],
 }

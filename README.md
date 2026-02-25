@@ -324,7 +324,9 @@ const customTourTheme = defineTourStyle({
 
 ## Live Demo
 
-To see the tour component in action:
+Try it online: [https://chakra-ui3-tour.vercel.app/](https://chakra-ui3-tour.vercel.app/)
+
+To run the demo locally:
 
 ```bash
 # Clone the repository

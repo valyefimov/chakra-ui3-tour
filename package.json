@@ -1,6 +1,6 @@
 {
   "name": "chakra-ui3-tour",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -34,12 +34,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@chakra-ui/anatomy": "^2.3.4",
-    "@chakra-ui/popper": "^3.1.0",
-    "@chakra-ui/react-use-controllable-state": "^2.1.0",
-    "@chakra-ui/styled-system": "^2.12.0",
-    "@chakra-ui/theme-tools": "^2.2.6",
-    "@chakra-ui/utils": "^2.2.2"
+    "@chakra-ui/popper": "^3.1.0"
   },
   "peerDependencies": {
     "@chakra-ui/react": "^3.0.0",

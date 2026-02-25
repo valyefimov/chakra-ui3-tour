@@ -9,8 +9,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: [
-      { find: 'chakra-ui3-tour', replacement: resolve(workspaceRoot, 'src/index.ts') },
-      { find: 'chakra-ui3-tour/', replacement: resolve(workspaceRoot, 'src/') },
+      { find: /^chakra-ui3-tour$/, replacement: resolve(workspaceRoot, 'src/index.ts') },
+      { find: /^chakra-ui3-tour\/(.*)$/, replacement: resolve(workspaceRoot, 'src/$1') },
     ],
   },
 });

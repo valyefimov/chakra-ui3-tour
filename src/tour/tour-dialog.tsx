@@ -239,7 +239,7 @@ export const TourNextButton = forwardRef<
   const isLastStep = tour.currentStep === tour.totalSteps - 1;
 
   return (
-    <Button ref={ref} size="sm" colorScheme="blue" onClick={tour.nextStep} {...rest}>
+    <Button ref={ref} size="sm" colorPalette="blue" onClick={tour.nextStep} {...rest}>
       {isLastStep && children === 'Next' ? 'Finish' : children}
     </Button>
   );
