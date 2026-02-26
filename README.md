@@ -441,4 +441,4 @@ MIT
 
 If you like this project, please consider giving it a ⭐️ on GitHub!
 
-For issues and feature requests, please [open an issue](https://github.com/yourusername/chakra-ui3-tour/issues).
+For issues and feature requests, please [open an issue](https://github.com/valyefimov/chakra-ui3-tour/issues).
